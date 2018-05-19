@@ -1,5 +1,4 @@
 #include <glib.h>
-
 #include "boy.h"
 #include "man.h"
 
