@@ -1,3 +1,4 @@
+#export LD_LIBRARY_PATH=/home/zilong/WorkSpace/glib/libs/lib/
 INCLUDE=-I/home/zilong/WorkSpace/glib/libs/include \
 	-I/home/zilong/WorkSpace/glib/libs/lib/glib-2.0/include \
 	-I/home/zilong/WorkSpace/glib/libs/include/glib-2.0 
