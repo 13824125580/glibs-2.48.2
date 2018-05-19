@@ -4,7 +4,7 @@
 static void man_bye(void);
 
 static void man_init(Man *man);
-static void man_class_init(Man *man);
+static void man_class_init(ManClass *man);
 
 GType man_get_type(void)
 {
@@ -31,8 +31,13 @@ static void man_init(Man *man)
 	man->bye = man_bye;
 }
 
-static void man_class_init(Man *man)
+static void man_class_init(ManClass *manclass)
 {
+    	GObjectClass *gobject_class;
+	BoyClass *boyclass;
+
+	gobject_class = G_OBJECT_CLASS (manclass);
+	boyclass = BOY_CLASS(manclass);
 }
 
 Man*  man_new(void)

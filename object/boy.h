@@ -6,6 +6,7 @@
 
 #define BOY_TYPE (boy_get_type())
 #define BOY(obj) (G_TYPE_CHECK_INSTANCE_CAST((obj),BOY_TYPE,Boy))
+#define BOY_CLASS(klass)   (G_TYPE_CHECK_CLASS_CAST ((klass), BOY_TYPE, BoyClass))
 
 typedef struct _Boy Boy;
 typedef struct _BoyClass BoyClass;
