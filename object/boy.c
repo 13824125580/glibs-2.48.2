@@ -39,6 +39,9 @@ static void boy_init(Boy *boy)
 
 static void boy_class_init(BoyClass *boyclass)
 {
+    	GObjectClass *gobject_class;
+
+	gobject_class = G_OBJECT_CLASS (boyclass);
 	boyclass->boy_born = boy_born;
 	boy_signals[BOY_BORN] = g_signal_new("boy_born",
 				BOY_TYPE,
