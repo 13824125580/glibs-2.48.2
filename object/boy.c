@@ -10,6 +10,12 @@ static void boy_born(void);
 static void boy_init(Boy *boy);
 static void boy_class_init(BoyClass *boyclass);
 
+
+void send_boy_signals(Boy  *pbase, int i)
+{
+	g_signal_emit(pbase, boy_signals[BOY_BORN], 0, i);
+}
+
 GType boy_get_type(void)
 {
 	static GType boy_type = 0;

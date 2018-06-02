@@ -2,6 +2,13 @@
 #include "boy.h"
 #include "man.h"
 
+void send_boy_signals(Boy  *pbase, int i);
+
+
+static void boy_born_callback_connect(Boy *pbase,int i,gpointer user_data)
+{
+	g_print("%s line %d\n", __func__, __LINE__);
+}
 int main(int argc, char *argv[])
 {
 	Boy *tom, *peter;
@@ -12,6 +19,9 @@ int main(int argc, char *argv[])
 #endif
 
 	tom = boy_new_with_name("Tom");
+
+	g_signal_connect(G_OBJECT(tom), "boy_born", G_CALLBACK(boy_born_callback_connect),NULL);
+	send_boy_signals(tom, 1);
 	tom->cry();
 	boy_info(tom);
 
