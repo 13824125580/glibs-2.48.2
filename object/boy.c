@@ -29,9 +29,11 @@ static void boy_class_intern_init (gpointer klass)
 
 GType boy_get_type(void)
 {
-	static GType boy_type = 0;
-	if(!boy_type)
+	static volatile gsize g_define_type_id__volatile = 0;
+
+	if (g_once_init_enter (&g_define_type_id__volatile))
 	{
+		GType boy_type = 0;
 		static const GTypeInfo boy_info = {
 			sizeof(BoyClass),
 			NULL,NULL,
@@ -43,8 +45,10 @@ GType boy_get_type(void)
 		};
 		boy_type = g_type_register_static(
 			   G_TYPE_OBJECT,"Boy",&boy_info,0);
+
+		g_once_init_leave (&g_define_type_id__volatile, boy_type);
 	}
-	return boy_type;
+	return g_define_type_id__volatile;
 }
 
 static void boy_init(Boy *boy)

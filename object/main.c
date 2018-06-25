@@ -11,23 +11,24 @@ static void boy_born_callback_connect(Boy *pbase,int i,gpointer user_data)
 }
 int main(int argc, char *argv[])
 {
-	Boy *tom, *peter;
 	Man *green, *brown;	
 
 #if !GLIB_CHECK_VERSION(2,35,0)
 	g_type_init();
 #endif
 
-	tom = boy_new_with_name("Tom");
-
-	g_signal_connect(G_OBJECT(tom), "boy_born", G_CALLBACK(boy_born_callback_connect),NULL);
-	send_boy_signals(tom, 1);
-	tom->cry();
-	boy_info(tom);
-
-	peter = boy_new_with_name_and_age("Peter", 10);
-	peter->cry();
-	boy_info(peter);
+/*
+ *        tom = boy_new_with_name("Tom");
+ *
+ *        g_signal_connect(G_OBJECT(tom), "boy_born", G_CALLBACK(boy_born_callback_connect),NULL);
+ *        send_boy_signals(tom, 1);
+ *        tom->cry();
+ *        boy_info(tom);
+ *
+ *        peter = boy_new_with_name_and_age("Peter", 10);
+ *        peter->cry();
+ *        boy_info(peter);
+ */
 
 	green = man_new();
 	boy_set_name(BOY(green), "Green");

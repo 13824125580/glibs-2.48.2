@@ -18,9 +18,11 @@ static void man_class_intern_init (gpointer klass)
 
 GType man_get_type(void)
 {
-	static GType man_type = 0;
-	if(!man_type)
+	static volatile gsize g_define_type_id__volatile = 0;
+
+	if (g_once_init_enter (&g_define_type_id__volatile))
 	{
+		GType man_type = 0;
 		static const GTypeInfo man_info = {
 			sizeof(ManClass),
 			NULL, NULL,
@@ -31,8 +33,9 @@ GType man_get_type(void)
 			(GInstanceInitFunc)man_init
 		};
 		man_type = g_type_register_static(BOY_TYPE, "Man", &man_info, 0);
+		g_once_init_leave (&g_define_type_id__volatile, man_type);
 	}
-	return man_type;
+	return g_define_type_id__volatile;
 }
 
 static void man_init(Man *man)
