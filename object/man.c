@@ -5,6 +5,16 @@ static void man_bye(void);
 
 static void man_init(Man *man);
 static void man_class_init(ManClass *man);
+static gint man_private_offset;
+static gpointer man_parent_class = NULL; 
+
+static void man_class_intern_init (gpointer klass)
+{                          
+	man_parent_class = g_type_class_peek_parent (klass);
+	if (man_private_offset != 0)
+		g_type_class_adjust_private_offset (klass, &man_private_offset);
+	man_class_init ((ManClass*) klass);
+}
 
 GType man_get_type(void)
 {
@@ -14,7 +24,7 @@ GType man_get_type(void)
 		static const GTypeInfo man_info = {
 			sizeof(ManClass),
 			NULL, NULL,
-			(GClassInitFunc)man_class_init,
+			(GClassInitFunc)man_class_intern_init,
 			NULL, NULL,
 			sizeof(Man),
 			0,

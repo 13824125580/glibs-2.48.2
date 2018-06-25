@@ -1,5 +1,6 @@
 /* boy.c */
 #include "boy.h"
+#include <glib.h>
 
 enum { BOY_BORN, LAST_SIGNAL };
 static gint boy_signals[LAST_SIGNAL] = { 0 };
@@ -9,11 +10,21 @@ static void boy_born(void);
 
 static void boy_init(Boy *boy);
 static void boy_class_init(BoyClass *boyclass);
+static gint boy_private_offset;
+static gpointer boy_parent_class = NULL; 
 
 
 void send_boy_signals(Boy  *pbase, int i)
 {
 	g_signal_emit(pbase, boy_signals[BOY_BORN], 0, i);
+}
+
+static void boy_class_intern_init (gpointer klass)
+{                          
+	boy_parent_class = g_type_class_peek_parent (klass);
+	if (boy_private_offset != 0)
+		g_type_class_adjust_private_offset (klass, &boy_private_offset);
+	boy_class_init ((BoyClass*) klass);
 }
 
 GType boy_get_type(void)
@@ -24,7 +35,7 @@ GType boy_get_type(void)
 		static const GTypeInfo boy_info = {
 			sizeof(BoyClass),
 			NULL,NULL,
-			(GClassInitFunc)boy_class_init,
+			(GClassInitFunc)boy_class_intern_init,
 			NULL,NULL,
 			sizeof(Boy),
 			0,
