@@ -141,5 +141,3 @@ void  boy_info(Boy *boy)
 	g_print("The Boy name is %s\n", boy->name);
 	g_print("The Boy age is %d\n", boy->age);
 }
-
-
